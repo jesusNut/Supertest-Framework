@@ -16,14 +16,13 @@ import { getRandomNumber } from "@src/utils/common";
 const request = supertest("https://practice-react.sdetunicorns.com/api/test");
 
 describe("Data Driven Tests - using it.each or test.each of Jest", () => {
-
   let generatedBrandID: string;
 
   afterEach(async () => {
     console.log(`Deleteing Brand with ID as ${generatedBrandID}`);
     const res = await request.delete("/brands/" + generatedBrandID);
     expect(res.statusCode).toBe(200);
-  })
+  });
   it.each(data)("POST /brands - $name", async data => {
     const nameOfBrand = data.name + getRandomNumber();
     const res = await request.post("/brands").send({
@@ -31,7 +30,9 @@ describe("Data Driven Tests - using it.each or test.each of Jest", () => {
       description: data.description,
     });
     generatedBrandID = res.body._id;
-    console.log(`Created Brand with name ${nameOfBrand} having ID as ${generatedBrandID}`);
+    console.log(
+      `Created Brand with name ${nameOfBrand} having ID as ${generatedBrandID}`,
+    );
     expect(res.statusCode).toBe(200);
   });
 });

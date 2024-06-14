@@ -23,7 +23,7 @@ describe("FETCH INDIVIDUAL BRAND", () => {
 
     //!******** 🦉 DELETEING THE BRAND AFTER COMPLETION OF ALL TESTS INSIDE THIS DESCRIBE🦉 ***********
 
-                afterAll(async () => {
+    afterAll(async () => {
       console.log("Brand ID in after all - " + brandID);
       const deleteResponse = await controller.deleteBrand(brandID);
       expect(deleteResponse.statusCode).toBe(200);
