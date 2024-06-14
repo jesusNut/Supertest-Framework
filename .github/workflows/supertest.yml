@@ -33,13 +33,15 @@ jobs:
       run: |
         ls test-results  # List contents of test-results for debugging
 
-    - name: Filter only html report file in test-results folder
+    - name: Rename HTML files to index.html
       run: |
-          mkdir filtered-results
-          mv test-results/*.html filtered-results/
-          rm -rf test-results/*
-          mv filtered-results/* test-results/
+          cd test-results
+          for file in *.html; do
+            mv "$file" index.html
+            break  # Assuming you only want to rename one file; remove this line if you want to rename all .html files
+          done
 
+   
     - name: Upload HTML report
       if: always()
       uses: actions/upload-artifact@v4
