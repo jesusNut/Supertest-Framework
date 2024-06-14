@@ -32,11 +32,18 @@ jobs:
       if: always()
       run: |
         ls test-results  # List contents of test-results for debugging
-        zip -r test-results.zip test-results
 
     - name: Upload HTML report
       if: always()
       uses: actions/upload-artifact@v4
       with:
           name: test-results
-          path: test-results.zip
+          path: test-results/**
+
+    - name: Deploy report to GitHub Pages
+      if: always()
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: test-results  # Directory containing the HTML report
