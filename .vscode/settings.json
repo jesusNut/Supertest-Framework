@@ -1,0 +1,7 @@
+{
+  "jest.runMode": {
+    "type": "on-demand"
+  },
+  "jest.nodeEnv": { "NODE_ENV": "qa" },
+  "jest.rootPath": "${workspaceFolder}",
+}

@@ -1,0 +1,42 @@
+name: Supertest - API Tests
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  test:
+    timeout-minutes: 50
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20.13.1  # Use the Node.js version that matches your environment
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run Framework tests on QA environment
+      run: npm run test:qa
+
+    - name: Generate HTML report
+      if: always()
+      run: |
+        ls test-results  # List contents of test-results for debugging
+        zip -r test-results.zip test-results
+
+    - name: Upload HTML report
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results-html
+        path: test-results.zip  

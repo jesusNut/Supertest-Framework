@@ -1,0 +1,8 @@
+{
+  "arrowParens": "avoid",
+  "bracketSpacing": true,
+  "proseWrap": "always",
+  "quoteProps": "as-needed",
+  "semi": true,
+  "trailingComma": "all"
+}
